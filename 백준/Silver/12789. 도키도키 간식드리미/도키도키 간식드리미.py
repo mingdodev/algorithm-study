@@ -8,6 +8,9 @@ for i in inputLine:
 waitingStack = deque()
 cnt = 1
 
+# '맨 앞의 사람만 이동이 가능' -> 대기열에서도 맨 앞의 사람은 이동할 수 있음, 문제를 잘못 이해함
+# 즉 cnt에 변화가 있을 때 waitingStack 재확인
+# 코드 너무 긴데 아 ^^ ㅠㅠ
 while len(line) > 0:
     if len(waitingStack) > 0:
         if waitingStack[-1] == cnt:
