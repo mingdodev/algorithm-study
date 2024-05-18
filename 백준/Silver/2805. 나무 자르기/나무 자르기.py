@@ -9,15 +9,10 @@ height_min = 0
 height_max = max(trees)
 good = 0
 
-# 아 같은 경우까지 체크해줘야 good 값이 업데이트 되겠구나
 while height_max >= height_min:
-    gain = 0
     search = (height_max + height_min) // 2
-
-    for i in range(N):
-        # 음수이면 값을 버려야 함
-        if (trees[i] - search) > 0:
-            gain += (trees[i] - search)
+    # 파이썬의 경우 반복문에서 매우 느리기 때문에 ... 이 부분 수정
+    gain = sum(tree - search for tree in trees if tree > search)
     
     if gain == M:
         good = search
