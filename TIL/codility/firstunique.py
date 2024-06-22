@@ -36,3 +36,26 @@ def solution2(A):
     return -1
 
 # 둘 다 시간 복잡도가 O(N**2)
+
+def solution(A):
+    lenA = len(A)
+    # 딕셔너리에 number별 카운트 저장
+    # 1이면 unique
+    count = {}
+
+    for i in A:
+        if i in count:
+            count[i] += 1
+        else:
+            count[i] = 1
+
+    for a in A:
+        if count[a] == 1:
+            return a
+    
+    return -1
+
+# O(N) 한 번에 필요한 정보를 다 얻을 수 있도록
+# O(N) + O(N) = O(N)
+# 왜 O(N * log(N))가 나오지
+# 코딜리티 자료구조가 다른가 정렬을 하나
