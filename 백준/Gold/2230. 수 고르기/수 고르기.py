@@ -1,23 +1,22 @@
-INF = 2000000000
+# 두 수의 차이 최소값 초기화
+INF = float("inf")
 ans = INF
 
+# N, M 입력
 N, M = map(int, input().split(' '))
-A = []
 
-# A 입력을 배열로 받음
+# A 입력 배열로 받기
+A = []
 for i in range(N):
     A.append(int(input()))
 
 # A 정렬
 A.sort()
 
-st = 0
-en = 0
-
 # en에 따른 st의 움직임
+en = 0
 for st in range(N):
     # 조건에 맞는 en 설정: 차이값이 M 이상이면 en 이동 멈춤
-    # en의 범위를 먼저 체크해줘야 out of index error가 발생하지 않음
     while en < N and A[en] - A[st] < M :
         en += 1
 
@@ -28,4 +27,5 @@ for st in range(N):
     # 차이값 중 최소값 찾기
     ans = min(ans, A[en] - A[st])
 
+# 정답 출력
 print(ans)
