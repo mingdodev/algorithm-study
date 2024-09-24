@@ -26,7 +26,8 @@ public class Main {
         }
         for (i = m; i <= n; i++) {
             if (!notPrime[i]) {
-                bw.write(i + "\n");
+                bw.write(String.valueOf(i));
+                bw.newLine();
             }
         }
 
