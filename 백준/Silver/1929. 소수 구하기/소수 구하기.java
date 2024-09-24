@@ -7,8 +7,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
         int m = Integer.parseInt(st.nextToken());
         int n = Integer.parseInt(st.nextToken());
@@ -26,12 +26,10 @@ public class Main {
         }
         for (i = m; i <= n; i++) {
             if (!notPrime[i]) {
-                bw.write(String.valueOf(i));
-                bw.newLine();
+                sb.append(i).append('\n');
             }
         }
 
-        bw.flush();
-        bw.close();
+        System.out.println(sb);
     }
 }
