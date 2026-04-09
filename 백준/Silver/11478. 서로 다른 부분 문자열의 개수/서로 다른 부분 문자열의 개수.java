@@ -9,14 +9,11 @@ public class Main {
         int size = string.length();
         Set<String> set = new HashSet<>();
         for (int i = 0; i < size; i++) {
-            String tempString = String.valueOf(string.charAt(i));
-            set.add(tempString);
-            for (int j = i + 1; j < size; j++) {
-                tempString += String.valueOf(string.charAt(j));
-                set.add(tempString);
+            for (int j = i; j < size; j++) {
+                set.add(string.substring(i, j + 1));
             }
         }
-        
+
         System.out.println(set.size());
     }
 }
