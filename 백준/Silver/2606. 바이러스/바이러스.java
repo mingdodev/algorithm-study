@@ -1,46 +1,37 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static List<List<Integer>> graph = new ArrayList<>();
-    public static boolean[] visited;
-    public static Set<Integer> set = new HashSet<>();
+    private static int count = 0;
 
     public static void main(String[] args) throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int m = Integer.parseInt(br.readLine());
 
-        int c = Integer.parseInt(br.readLine());
-        int v = Integer.parseInt(br.readLine());
-
-        // 1번부터 n번까지 사용
-        for (int i = 0; i <= c; i++) {
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i <= n; i++) {
             graph.add(new ArrayList<>());
         }
-
-        // 인접 리스트에 그래프 정보 저장하기
-        for (int i = 0; i < v; i++) {
+        for (int i = 0; i < m; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            int n = Integer.parseInt(st.nextToken());
-            int m = Integer.parseInt(st.nextToken());
-            graph.get(n).add(m);
-            graph.get(m).add(n);
+            int u = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            graph.get(u).add(v);
+            graph.get(v).add(u);
         }
 
-        visited = new boolean[c + 1];
-
-        dfs(1);
-
-        // 1번을 통해 감염되는 컴퓨터의 수 출력
-        System.out.println(set.size() - 1);
+        boolean[] visited = new boolean[n + 1];
+        dfs(graph, visited, 1);
+        System.out.println(count - 1); // "1번 컴퓨터를 통해" 걸리게 되는 컴퓨터의 수이므로 1번 컴퓨터는 제외
     }
+    private static void dfs(List<List<Integer>> graph, boolean[] visited, int start) {
+        visited[start] = true;
+        count++;
 
-    public static void dfs(int n) {
-        visited[n] = true;
-        set.add(n);
-        for(int i = 0; i < graph.get(n).size(); i++) {
-            int m = graph.get(n).get(i);
-            if (!visited[m]) dfs(m);
+        for (int i : graph.get(start)) {
+            if (visited[i]) continue;
+            dfs(graph, visited, i);
         }
     }
 }
