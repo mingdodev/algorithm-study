@@ -1,37 +1,49 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
 
 class Solution {
-    private int minCost = 0;
     private int[] parent;
     
-    private int find(int x) {
-        if (parent[x] == x) return x;
-        return parent[x] = find(parent[x]);
-    }
-    private void union(int from, int to, int cost) {
-        int rootFrom = find(from);
-        int rootTo = find(to);
-        
-        if (rootFrom == rootTo) return;
-        
-        parent[rootTo] = rootFrom;
-        minCost += cost;
-    }
     public int solution(int n, int[][] costs) {
+        int minCost = 0;
+        
         parent = new int[n];
         for (int i = 0; i < n; i++) {
             parent[i] = i;
         }
         
-        Arrays.sort(costs, Comparator.comparingInt(cost -> cost[2]));
-        for (int[] cost : costs) {
-            int from = cost[0];
-            int to = cost[1];
-            int currentCost = cost[2];
+        Arrays.sort(costs, Comparator.comparingInt(edge -> edge[2]));
+        
+        int selected = 0;
+        for (int[] edge : costs) {
+            int from = edge[0];
+            int to = edge[1];
+            int cost = edge[2];
             
-            union(from, to, currentCost);
+            if (union(from, to)) {
+                minCost += cost;
+                selected++;
+                
+                if (selected == n - 1) break;
+            };
         }
         
         return minCost;
+    }
+    
+    private int find(int x) {
+        if (parent[x] == x) return x;
+        return parent[x] = find(parent[x]);
+    }
+    
+    private boolean union(int from, int to) {
+        int parentFrom = find(from);
+        int parentTo = find(to);
+        
+        if (parentFrom == parentTo) return false;
+        
+        parent[parentTo] = parentFrom;
+        
+        return true;
     }
 }
